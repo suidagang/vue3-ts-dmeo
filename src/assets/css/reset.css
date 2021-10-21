@@ -1,0 +1,25 @@
+/* 清楚浏览器默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; 
+    font-family: '微软雅黑', 'Helvetica Neue', "STXiHei", 'Source Sans Pro', Helvetica, Arial, sans-serif;
+}
+html,body{
+    height: 100%;
+    width:100%;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; 
+}
+
+div{
+    -moz-user-select:none;/*火狐*/
+    -webkit-user-select:none;/*webkit浏览器*/
+    -ms-user-select:none;/*IE10*/
+    -khtml-user-select:none;/*早期浏览器*/
+      user-select:none;
+}

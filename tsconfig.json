@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    //如果设置为noImplicitAny:true,意思就是值就算是 any（任意值），你也要进行类型注释。
+    // "noImplicitAny":false,
+    //我们先把strictNullChecks设置为false,它的意思就是，不强制检查 NULL 类型
+    "removeComments":false,//false,打包是否看得见注释===false ==> 能看见
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,//要按照TypeScript最严格的规范来写
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": [
+      "webpack-env"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

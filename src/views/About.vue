@@ -16,9 +16,77 @@ export default defineComponent({
     },
     methods: {
         /**
-         * 介绍接口（interface）和type的区别和使用场景
+         * 介绍接口（interface）和类型别名type的区别和使用场景
          */
-        interfaceOrType(){},
+        interfaceOrType() {
+            // 相同点一：都可以描述一个对象或者函数
+            interface User {
+                // 描述一个对象
+                name: string;
+                age: number;
+            }
+            interface SetUser {
+                // 描述一个函数
+                (name: string, age: number): void;
+            }
+            type UserType = {
+                // 描述一个对象
+                name: string;
+                age: number;
+            };
+
+            type SetUserType = {
+                // 描述一个函数
+                (name: string, age: number): void;
+            };
+            let test: SetUserType;
+            test = function (name: string, age: number): void {
+                console.log(111);
+            };
+            // 相同点二：都允许拓展（extends）属性继承
+            //1.interface属性继承
+            interface dudu1 {
+                name: string;
+            }
+            interface dudu2 extends dudu1 {
+                age: number;
+            }
+            const duduTest: dudu2 = { name: "zyb", age: 23 };
+            //2.type类型继承type类型
+            type Nametype = {
+                name: string;
+            };
+            type UserType1 = Nametype & { age: number };
+            const valueType: UserType1 = { name: "zyb", age: 23 };
+            //3.interface extends type (接口继承类型)
+            type LulvwaType = {
+                name: string;
+            };
+            interface LulvwaFace extends LulvwaType {
+                age: number;
+            }
+            const LulvwaValue: LulvwaFace = { name: "zyb", age: 23 };
+            //4.type extends interface (类型继承接口)
+            interface shajFace {
+                name: string;
+            }
+            type shajType = shajFace & {
+                age: number;
+            };
+            const shajValue: shajType = { name: "zyb", age: 23 };
+
+            // 不同点一：type 可以声明基本类型别名，联合类型，元组等类型，而 interface 不行
+            //1、 基本类型别名
+            type DiffName = string;
+            // 2.联合类型
+            interface Dog {
+                wong(): void;
+            }
+            interface Cat {
+                miao(): void;
+            }
+            type Pet = Dog | Cat;
+        },
         /**
          * 泛型
          * @des 泛型代表的是泛指某一类型，更像是一个类型变量。由尖括号包裹<T>
@@ -72,9 +140,9 @@ export default defineComponent({
             //***************定义泛型约束之类型参数*****************/
             function getPropoty<T, K extends keyof T>(obj: T, key: K) {
                 return obj[key];
-            };
-            let obj = {a:1, b:"2", c:3};
-            console.log(getPropoty(obj, 'c'),'---参数');
+            }
+            let obj = { a: 1, b: "2", c: 3 };
+            console.log(getPropoty(obj, "c"), "---参数");
         },
         /**
          * 11种基础类型定义

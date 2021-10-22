@@ -8,18 +8,27 @@
 import { defineComponent } from "vue";
 export default defineComponent({
     mounted() {
-        this.baseType();
-        this.interfaceDemo();
-        this.classType();
-        this.genericType();
-        this.interfaceOrType();
+        this.baseType();//11种基础类型定义
+        this.interfaceDemo();//interface接口
+        this.classType();//类
+        this.genericType();//泛型
+        this.interfaceOrType();//接口（interface）和类型别名type
+        this.getDeclare();//Declare声明文件
     },
     methods: {
         /**
+         * Declare关键字
+         * */ 
+        getDeclare(){
+            //我们在.ts中使用的第三方库时没有.d.ts声明文件的时候，我们可以通过declare来写申明文件。
+            //可以声明该模块，甚至可以直接声明一个值为any的同名的变量，然后我们就可以在代码中直接使用该三方库了。
+        },
+        /**
          * 介绍接口（interface）和类型别名type的区别和使用场景
+         * @description 一般来说，能用interface实现，就用interface，如果不能就用type
          */
         interfaceOrType() {
-            // 相同点一：都可以描述一个对象或者函数
+            // 相同点一：都可以描述一个对象或者函数,type 和 interface 的语法不一样，type 需要等号，而 interface 不需要等号
             interface User {
                 // 描述一个对象
                 name: string;
@@ -86,6 +95,27 @@ export default defineComponent({
                 miao(): void;
             }
             type Pet = Dog | Cat;
+            // 具体定义数组每个位置的类型
+            type PetList = [Dog, Pet];
+            //2.type语句中还可以使用typeof获取实例的类型进行赋值
+            let div = document.createElement("div");
+            type B = typeof div;
+            //3.type其他骚操作
+            type StringOrNumber = string | number;
+            type Text = string | { text: string };
+            type Callback<T> = (data: T) => void;
+            type Pair<T> = [T, T];
+            type Coordinates = Pair<number>;
+            type Tree<T> = T | { left: Tree<T>; right: Tree<T> };
+            //4.interface能够声明合并
+            interface User {
+                name: string;
+                age: number;
+            }
+
+            interface User {
+                sex: string;
+            }
         },
         /**
          * 泛型

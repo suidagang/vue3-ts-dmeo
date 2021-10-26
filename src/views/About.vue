@@ -8,18 +8,18 @@
 import { defineComponent } from "vue";
 export default defineComponent({
     mounted() {
-        this.baseType();//11种基础类型定义
-        this.interfaceDemo();//interface接口
-        this.classType();//类
-        this.genericType();//泛型
-        this.interfaceOrType();//接口（interface）和类型别名type
-        this.getDeclare();//Declare声明文件
+        this.baseType(); //11种基础类型定义
+        this.interfaceDemo(); //interface接口
+        this.classType(); //类
+        this.genericType(); //泛型
+        this.interfaceOrType(); //接口（interface）和类型别名type
+        this.getDeclare(); //Declare声明文件
     },
     methods: {
         /**
          * Declare关键字
-         * */ 
-        getDeclare(){
+         * */
+        getDeclare() {
             //我们在.ts中使用的第三方库时没有.d.ts声明文件的时候，我们可以通过declare来写申明文件。
             //可以声明该模块，甚至可以直接声明一个值为any的同名的变量，然后我们就可以在代码中直接使用该三方库了。
         },
@@ -279,6 +279,23 @@ export default defineComponent({
             }
             let list: List = ["one", "two"];
             //***************①定义函数*****************/
+            // 普通的接口
+            interface discount1{
+                getNum : (price:number) => number
+            }
+            function testFun(discount1: discount1):void{
+                console.log(discount1.getNum);
+            }
+            // 函数类型接口
+            interface discount2{
+                // 注意:
+                // “:” 前面的是函数的签名，用来约束函数的参数
+                // ":" 后面的用来约束函数的返回值
+                (price:number):number
+            }
+            let cost:discount2 = function(price:number):number{
+                return price * .8;
+            }
             interface Fun {
                 (name: string): void;
             }
@@ -318,7 +335,37 @@ export default defineComponent({
             }
             function createTest(config: TestConfig): any {}
             let myTest = createTest({ color: "red", width: 20 });
+            // ***********可索引类型接口***********/
+            // 数字索引——约束数组
+            // index 是随便取的名字，可以任意取名
+            // 只要 index 的类型是 number，那么值的类型必须是 string
+            interface StringArray {
+                // key 的类型为 number ，一般都代表是数组
+                // 限制 value 的类型为 string
+                [index: number]: string;
+            }
+            let arr: StringArray = ["aaa", "bbb"];
+            console.log(arr);
+            // 字符串索引——约束对象
+            // 只要 index 的类型是 string，那么值的类型必须是 string
+            interface StringObject {
+                // key 的类型为 string ，一般都代表是对象
+                // 限制 value 的类型为 string
+                [index: string]: string;
+            }
+            let obj: StringObject = { name: "ccc" };
 
+            //函数重载
+            function attr(val: any): any {
+                if (typeof val === 'string') {
+                    return val;
+                } else if (typeof val === 'number') {
+                    return val;
+                } 
+            }
+
+            alert(attr('aaa'));
+            attr(666);
             // 接口 interface 相关定义 ---end====
         },
         /**
